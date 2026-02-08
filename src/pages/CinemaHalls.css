@@ -1,0 +1,116 @@
+.cinema-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0f0c29 0%, #1a1a2e 50%, #16213e 100%);
+  padding-bottom: 3rem;
+}
+
+.cinema-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cinema-header-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+  color: #a78bfa;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.cinema-header h1 {
+  margin: 0;
+  font-size: 1.35rem;
+  color: #fff;
+}
+
+.movie-context {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.cinema-header .user-badge {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.cinema-header .logout-btn {
+  padding: 0.5rem 1rem;
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  border-radius: 8px;
+  color: #fca5a5;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.halls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+  padding: 1.5rem;
+}
+
+.hall-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.hall-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(167, 139, 250, 0.5);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.hall-icon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.hall-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.hall-location {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.hall-city {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  background: rgba(167, 139, 250, 0.2);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: #a78bfa;
+}
+
+.cinema-page .no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 2rem;
+}
