@@ -12,6 +12,8 @@ export default function Dashboard() {
 
   const movies = useMemo(() => getMovies(), []);
   const cities = useMemo(() => getCities(), []);
+  const FALLBACK_POSTER = '/assets/no-image.jpg';
+
 
   const filtered = useMemo(() => {
     return movies.filter((m) => {
@@ -83,9 +85,10 @@ export default function Dashboard() {
                   src={movie.poster}
                   alt={movie.title}
                   onError={(e) => {
-                    e.target.src = `https://via.placeholder.com/200x300/1f2937/9ca3af?text=${encodeURIComponent(movie.title)}`;
+                    e.target.src = movie.poster || FALLBACK_POSTER;
                   }}
                 />
+
               </div>
               <div className="movie-info">
                 <h3>{movie.title}</h3>

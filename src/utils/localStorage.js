@@ -1,93 +1,81 @@
 import {
   MOVIES,
   CINEMA_HALLS,
-  SHOW_SLOTS,
   CITIES,
-  STORAGE_KEYS,
+  SHOW_SLOTS,
 } from '../data/seedData';
 
+const USERS_KEY = 'users';
+const BOOKINGS_KEY = 'bookings';
+
+// ---------- USERS ----------
+
 export function getUsers() {
-  const raw = localStorage.getItem(STORAGE_KEYS.USERS);
-  return raw ? JSON.parse(raw) : [];
+  return JSON.parse(localStorage.getItem(USERS_KEY)) || [];
 }
 
 export function setUsers(users) {
-  localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
+  localStorage.setItem(USERS_KEY, JSON.stringify(users));
 }
 
 export function registerUser({ email, name, password }) {
   const users = getUsers();
-  if (users.some((u) => u.email.toLowerCase() === email.toLowerCase())) {
-    return { ok: false, error: 'Email already registered' };
+
+  if (users.some((u) => u.email === email.toLowerCase())) {
+    return { ok: false, error: 'Email already exists' };
   }
-  const user = {
+
+  const newUser = {
     id: `u${Date.now()}`,
-    email: email.trim().toLowerCase(),
-    name: (name || '').trim(),
-    password, // In a real app you would hash this
+    email: email.toLowerCase(),
+    name,
+    password,
   };
-  users.push(user);
+
+  users.push(newUser);
   setUsers(users);
-  return { ok: true, user: { id: user.id, email: user.email, name: user.name } };
+
+  return { ok: true, user: newUser };
 }
 
 export function loginUser(email, password) {
   const users = getUsers();
+
   const user = users.find(
-    (u) => u.email.toLowerCase() === email.trim().toLowerCase() && u.password === password
+    (u) => u.email === email.toLowerCase() && u.password === password
   );
-  if (!user) return { ok: false, error: 'Invalid email or password' };
-  return {
-    ok: true,
-    user: { id: user.id, email: user.email, name: user.name },
-  };
+
+  if (!user) return { ok: false, error: 'Invalid credentials' };
+
+  return { ok: true, user };
 }
 
+// ---------- BOOKINGS ----------
+
 export function getBookings() {
-  const raw = localStorage.getItem(STORAGE_KEYS.BOOKINGS);
-  return raw ? JSON.parse(raw) : [];
+  return JSON.parse(localStorage.getItem(BOOKINGS_KEY)) || [];
 }
 
 export function addBooking(booking) {
   const bookings = getBookings();
-  const newBooking = {
-    id: `b${Date.now()}`,
-    ...booking,
-  };
-  bookings.push(newBooking);
-  localStorage.setItem(STORAGE_KEYS.BOOKINGS, JSON.stringify(bookings));
-  return newBooking;
+  bookings.push({ id: `b${Date.now()}`, ...booking });
+  localStorage.setItem(BOOKINGS_KEY, JSON.stringify(bookings));
 }
 
-function ensureSeed() {
-  if (!localStorage.getItem(STORAGE_KEYS.MOVIES)) {
-    localStorage.setItem(STORAGE_KEYS.MOVIES, JSON.stringify(MOVIES));
-    localStorage.setItem(STORAGE_KEYS.CINEMA_HALLS, JSON.stringify(CINEMA_HALLS));
-    localStorage.setItem(STORAGE_KEYS.SHOW_SLOTS, JSON.stringify(SHOW_SLOTS));
-    localStorage.setItem(STORAGE_KEYS.CITIES, JSON.stringify(CITIES));
-  }
-}
+// ---------- DATA ----------
 
 export function getMovies() {
-  ensureSeed();
-  const raw = localStorage.getItem(STORAGE_KEYS.MOVIES);
-  return raw ? JSON.parse(raw) : MOVIES;
+  return MOVIES;
 }
 
 export function getCinemaHalls() {
-  ensureSeed();
-  const raw = localStorage.getItem(STORAGE_KEYS.CINEMA_HALLS);
-  return raw ? JSON.parse(raw) : CINEMA_HALLS;
-}
-
-export function getShowSlots() {
-  ensureSeed();
-  const raw = localStorage.getItem(STORAGE_KEYS.SHOW_SLOTS);
-  return raw ? JSON.parse(raw) : SHOW_SLOTS;
+  return CINEMA_HALLS;
 }
 
 export function getCities() {
-  ensureSeed();
-  const raw = localStorage.getItem(STORAGE_KEYS.CITIES);
-  return raw ? JSON.parse(raw) : CITIES;
+  return CITIES;
+}
+
+export function getShowSlots() {
+  return SHOW_SLOTS;
 }
