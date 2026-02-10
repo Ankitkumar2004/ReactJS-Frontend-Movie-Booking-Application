@@ -8,7 +8,6 @@ import {
 const USERS_KEY = 'users';
 const BOOKINGS_KEY = 'bookings';
 
-// ---------- USERS ----------
 
 export function getUsers() {
   return JSON.parse(localStorage.getItem(USERS_KEY)) || [];
@@ -50,7 +49,6 @@ export function loginUser(email, password) {
   return { ok: true, user };
 }
 
-// ---------- BOOKINGS ----------
 
 export function getBookings() {
   return JSON.parse(localStorage.getItem(BOOKINGS_KEY)) || [];

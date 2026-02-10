@@ -15,7 +15,7 @@ export default function Login() {
     e.preventDefault();
     setError('');
     const result = loginUser(email, password);
-    if (!result.ok) {
+    if (!result.ok) {a
       setError(result.error);
       return;
     }

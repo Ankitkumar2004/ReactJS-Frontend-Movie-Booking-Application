@@ -63,7 +63,6 @@ export const MOVIES = [
     cities: ['Mumbai', 'Delhi', 'Chennai', 'Bangalore'],
   },
 
-  // ⭐ NEW MOVIES ⭐
 
   {
     id: 'm6',
@@ -149,22 +148,21 @@ export const MOVIES = [
 ];
 
 export const CINEMA_HALLS = [
-  // Mumbai
+ 
   { id: 'c1', name: 'PVR Phoenix Mall', city: 'Mumbai', movieIds: ['m1','m2','m3','m4','m6','m7','m8','m9','m10','m11','m12','m14','m15'] },
   { id: 'c2', name: 'INOX R City', city: 'Mumbai', movieIds: ['m1','m2','m3','m5','m6','m7','m8','m9','m10','m11','m12','m14','m15'] },
 
-  // Delhi
+  
   { id: 'c3', name: 'Cinepolis DLF', city: 'Delhi', movieIds: ['m1','m2','m3','m5','m6','m7','m8','m9','m10','m11','m12','m14','m15'] },
   { id: 'c4', name: 'PVR Anupam', city: 'Delhi', movieIds: ['m2','m3','m5','m6','m7','m8','m9','m10','m11','m12','m14','m15'] },
 
-  // Bangalore
+ 
   { id: 'c5', name: 'Forum Mall Cinemas', city: 'Bangalore', movieIds: ['m1','m2','m3','m4','m5','m6','m7','m8','m9','m10','m11','m12','m14','m15'] },
   { id: 'c6', name: 'PVR Orion Mall', city: 'Bangalore', movieIds: ['m2','m3','m5','m6','m7','m8','m9','m10','m11','m12','m14','m15'] },
 
-  // Chennai
   { id: 'c7', name: 'Rohini Cinemas', city: 'Chennai', movieIds: ['m2','m3','m5','m6','m7','m8','m9','m10','m11','m12','m14','m15'] },
 
-  // Kolkata
+  
   { id: 'c8', name: 'INOX Bharath Mall', city: 'Kolkata', movieIds: ['m2','m3','m4','m6','m7','m8','m9','m10','m11','m12','m14','m15'] },
 ];
 

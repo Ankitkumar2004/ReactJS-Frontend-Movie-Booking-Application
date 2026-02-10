@@ -7,6 +7,12 @@ import './Dashboard.css';
 export default function Dashboard() {
   const [cityFilter, setCityFilter] = useState('');
   const [nameFilter, setNameFilter] = useState('');
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [notifications, setNotifications] = useState([
+    { id: 1, message: 'Welcome back! Your saved bookings are ready.', type: 'info', time: 'Just now' },
+    { id: 2, message: 'Special offer: Get 20% off on evening shows!', type: 'offer', time: '2 hours ago' },
+    { id: 3, message: 'New movies released in your city this week.', type: 'update', time: '5 hours ago' }
+  ]);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -14,6 +20,7 @@ export default function Dashboard() {
   const cities = useMemo(() => getCities(), []);
   const FALLBACK_POSTER = '/assets/no-image.jpg';
 
+  const unreadCount = notifications.length;
 
   const filtered = useMemo(() => {
     return movies.filter((m) => {
@@ -30,6 +37,14 @@ export default function Dashboard() {
     navigate('/login', { replace: true });
   }
 
+  function handleNotificationClick(id) {
+    setNotifications(notifications.filter(n => n.id !== id));
+  }
+
+  function handleClearAll() {
+    setNotifications([]);
+  }
+
   return (
     <div className="dashboard">
       <header className="dashboard-header">
@@ -37,9 +52,56 @@ export default function Dashboard() {
           <h1>Quick Booking</h1>
           <span className="user-badge">Hi, {user?.name || user?.email}</span>
         </div>
-        <button type="button" className="logout-btn" onClick={handleLogout}>
-          Logout
-        </button>
+        
+        <div className="header-actions">
+          <div className="notification-container">
+            <button 
+              className="notification-bell" 
+              onClick={() => setShowNotifications(!showNotifications)}
+              title="Notifications"
+            >
+              🔔
+              {unreadCount > 0 && <span className="notification-badge">{unreadCount}</span>}
+            </button>
+            
+            {showNotifications && (
+              <div className="notification-dropdown">
+                <div className="notification-header">
+                  <h3>Notifications</h3>
+                  {unreadCount > 0 && <button className="clear-btn" onClick={handleClearAll}>Clear All</button>}
+                </div>
+                
+                {notifications.length > 0 ? (
+                  <ul className="notification-list">
+                    {notifications.map(notif => (
+                      <li key={notif.id} className={`notification-item ${notif.type}`}>
+                        <div className="notification-content">
+                          <p className="notification-message">{notif.message}</p>
+                          <span className="notification-time">{notif.time}</span>
+                        </div>
+                        <button 
+                          className="remove-notif-btn" 
+                          onClick={() => handleNotificationClick(notif.id)}
+                          title="Dismiss"
+                        >
+                          ✕
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="empty-notifications">
+                    <p>No notifications</p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          <button type="button" className="logout-btn" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
       </header>
 
       <section className="filters">
